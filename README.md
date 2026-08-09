@@ -5,6 +5,15 @@ A simple console-based Tic-Tac-Toe game built in C++ using Object-Oriented Progr
 The game allows two players to play against each other using a 3×3 board. Players take turns placing X and O until one player wins.
 
 ---
+## 📸 Game Output
+
+Here is a screenshot of the game running in the terminal:
+
+<img width="278" height="227" alt="image" src="https://github.com/user-attachments/assets/a413d22f-6f36-4f2f-8e17-63acf196e079" />
+
+
+---
+
 
 ## 🎮 Game Design
 
