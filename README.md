@@ -1,37 +1,48 @@
-# Tic-Tac-Toe Game 🎮
+# 🎮 Tic Tac Toe
 
-A simple console-based Tic-Tac-Toe game built in C++ using Object-Oriented Programming.
-
-The game allows two players to play against each other using a 3×3 board. Players take turns placing X and O until one player wins.
+A simple console-based Tic Tac Toe game built in C++ as a personal project to practice object-oriented programming, game logic, and problem-solving.
 
 ---
-## 📸 Game Output
+## 🖥️ Output
 
-Here is a screenshot of the game running in the terminal:
+### Gameplay
 
-<img width="278" height="227" alt="image" src="https://github.com/user-attachments/assets/a413d22f-6f36-4f2f-8e17-63acf196e079" />
+<img width="329" height="236" alt="Output png" src="https://github.com/user-attachments/assets/980b9f45-acbe-4fec-ba3b-20cdd9f063e9" />
 
+
+### Game Statistics
+
+<img width="410" height="168" alt="Output png (2)" src="https://github.com/user-attachments/assets/e17f91c4-9996-40c2-9c6c-be60a2c58828" />
 
 ---
 
 
 ## 🎮 Game Design
 
-The game is designed for two players:
+The game is played on a 3×3 board by two players. Player X starts first, and both players take turns entering a row and column to place their mark.
 
-- Player X starts the game.
-- Players enter a row and column to place their symbol.
-- The board is updated after every valid move.
-- The game checks for a winner after each move.
-- The game ends when a player gets three of their symbols in a row.
-
-The board uses a simple 3×3 layout to keep the gameplay easy to understand and use.
+The game ends when:
+- A player gets three marks in a row.
+- All spaces are filled without a winner, resulting in a draw.
 
 ---
 
-## 🏗️ Code Structure
+## 🧩 Code Structure
 
-The project is built around a `Tic_tac` class.
+The game is organized using a `Tic_tac` class.
+
+### Main Components
+
+- `display_board()` — Displays the current game board and player turn.
+- `playerName()` — Takes the names of both players.
+- `input()` — Takes row and column input from the player.
+- `update()` — Places the player's mark and checks the game result.
+- `checkWinner()` — Checks rows, columns, and diagonals for a winner.
+- `checkDraw()` — Checks whether the board is full without a winner.
+- `changePlayer()` — Switches the turn between X and O.
+- `checkStats()` — Updates game and win statistics.
+- `displayStats()` — Displays the current game statistics.
+- `resetGame()` — Clears the board and prepares a new game.
 
 ### Main Class
 
@@ -64,19 +75,19 @@ The `main()` function handles the game menu and controls the overall flow of the
 
 ## ✨ Features
 
-- 🎮 Two-player Tic-Tac-Toe
+- Two-player Tic Tac Toe gameplay
+- Player name input for X and O
 - 3×3 game board
-- Player turn system
-- Row and column input
-- Input validation
-- Occupied-position checking
-- Automatic winner detection
-- X and O win statistics
-- Total games played
+- Input validation for rows and columns
+- Winner detection for rows, columns, and diagonals
+- Draw detection
+- Play Again option
+- Automatic board reset for a new game
+- Game statistics
+- Separate win counts for both players
+- Draw and total games tracking
+- Colored console output
 - Game rules section
-- Console colors for better display
-- Simple and clean console interface
-
 ---
 
 ## 🛠️ Technologies Used
@@ -103,14 +114,13 @@ Some features I would like to add in future versions:
 - More detailed game statistics
 
 ---
-
 ## ▶️ How to Run
 
-1. Clone or download this repository.
-2. Open the `.cpp` file in a C++ IDE or code editor.
+1. Download or clone this repository.
+2. Open `TicTacToe.cpp` in a C++ compiler or IDE.
 3. Compile the program.
-4. Run the program from the terminal.
-
+4. Run the program from the console.
+5. Enter player names and start playing.
 ---
 
 ## 📌 Project Status
@@ -118,3 +128,13 @@ Some features I would like to add in future versions:
 The current version is a working two-player console-based Tic-Tac-Toe game.
 
 More features can be added in future updates.
+---
+## 🚀 Future Improvements
+
+Some features I would like to add in the future:
+
+- Single-player mode with a computer opponent
+- Difficulty levels
+- Better input handling
+- More game customization options
+- Improved console interface
