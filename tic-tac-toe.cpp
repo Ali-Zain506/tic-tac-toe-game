@@ -12,6 +12,8 @@ private:
     char currentPlayer;
     bool gameOver;
     int xWin, oWin, draws, gamesPlayed;
+    string firstPlayer ;
+    string secondPlayer;
 
 public:
     Tic_tac()
@@ -78,12 +80,18 @@ public:
         cout << endl;
         if (currentPlayer == 'X')
         {
-            cout << red << " Current Player: " << currentPlayer << reset << endl;
+            cout << red << " Current Player: " << firstPlayer << reset << endl;
         }
         else
         {
-            cout << blue << " Current Player: " << currentPlayer << reset << endl;
+            cout << blue << " Current Player: " << secondPlayer << reset << endl;
         }
+    }
+    void playerName (){
+        cout << "Enter your Name(X): " ;
+        cin >> firstPlayer ;
+        cout << "Enter your Name(O): ";
+        cin >> secondPlayer ;
     }
 
     void input()
@@ -122,14 +130,31 @@ public:
 
                 display_board();
                 checkStats();
-                cout << green << " Winner is: " << currentPlayer << reset << endl;
+                if (currentPlayer == 'X') {
+                    cout << green << " Winner is: " << firstPlayer << reset << endl;
+                }
+                else  {
+                    cout << green << " Winner is: " << secondPlayer<< reset << endl;
+                }
                 cout << endl;
                 gameOver = true;
                 return;
             }
             else
             {
-                changePlayer();
+                if (checkDraw())
+                {
+                    draws++;
+                    gamesPlayed++;
+                    display_board();
+                    cout << "Match Draw...." << endl;
+                    gameOver = true;
+                    return;
+                }
+                else
+                {
+                    changePlayer();
+                }
             }
         }
         else
@@ -191,6 +216,21 @@ public:
         }
     }
 
+    bool checkDraw()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (baord[i][j] == '*')
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     void checkStats()
     {
 
@@ -213,9 +253,22 @@ public:
         cout << "======== GAME STATISTICS ========" << endl;
         cout << "                                 " << endl;
         cout << yellow << "Game Played: " << gamesPlayed << reset << endl;
-        cout << yellow << "X wins:      " << xWin << reset << endl;
-        cout << yellow << "O wins:      " << oWin << endl;
- 
+        cout << yellow << firstPlayer << "  Wins:  " << xWin << reset << endl;
+        cout << yellow << secondPlayer << " wins:  " << oWin << reset << endl;
+        cout << yellow << "Draw:      " << draws << reset << endl;
+    }
+    void resetGame()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+
+            for (int j = 0; j < 3; j++)
+            {
+                baord[i][j] = '*';
+            }
+        }
+        currentPlayer = 'X';
+        gameOver = false;
     }
 };
 int main()
@@ -224,6 +277,7 @@ int main()
     int choice;
     string yellow = "\033[33m";
     string reset = "\033[0m";
+
     do
     {
         cout << yellow << "|1. Play Game" << reset << endl;
@@ -232,20 +286,35 @@ int main()
         cout << yellow << "|4. Exit " << reset << endl;
         cout << "Enter Choice :  ";
         cin >> choice;
+
         switch (choice)
         {
         case 1:
         {
-            
+            char again;
+            t.playerName();
+
             do
             {
-                system("cls");
-                t.display_board();
-                t.input();
+                
+                t.resetGame();
 
-            } while (!t.get_gameOver());
+                do
+                {
+                    system("cls");
+                    t.display_board();
+                    t.input();
+
+                } while (!t.get_gameOver());
+
+                cout << "Play Again? (Y/N): ";
+                cin >> again;
+
+            } while (again == 'Y' || again == 'y');
+
             break;
         }
+
         case 2:
         {
             cout << endl;
@@ -257,14 +326,25 @@ int main()
             cout << endl;
             break;
         }
+
         case 3:
-            t.displayStats ();
+        {
+            t.displayStats();
             break;
-            case 4 :
+        }
+
+        case 4:
+        {
             cout << "Thanks for Playing.." << endl;
             break;
-        default:
-            cout << "Invlai choice..!" << endl;
         }
+
+        default:
+        {
+            cout << "Invalid choice..!" << endl;
+            break;
+        }
+        }
+
     } while (choice != 4);
 }
