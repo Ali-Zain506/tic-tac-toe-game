@@ -12,7 +12,7 @@ private:
     char currentPlayer;
     bool gameOver;
     int xWin, oWin, draws, gamesPlayed;
-    string firstPlayer ;
+    string firstPlayer;
     string secondPlayer;
 
 public:
@@ -38,6 +38,11 @@ public:
         return gameOver;
     }
 
+    char getCurrent_player()
+    {
+
+        return currentPlayer;
+    }
     void display_board()
     {
         string yellow = "\033[33m";
@@ -87,11 +92,12 @@ public:
             cout << blue << " Current Player: " << secondPlayer << reset << endl;
         }
     }
-    void playerName (){
-        cout << "Enter your Name(X): " ;
-        cin >> firstPlayer ;
+    void playerName()
+    {
+        cout << "Enter your Name(X): ";
+        cin >> firstPlayer;
         cout << "Enter your Name(O): ";
-        cin >> secondPlayer ;
+        cin >> secondPlayer;
     }
 
     void input()
@@ -130,11 +136,13 @@ public:
 
                 display_board();
                 checkStats();
-                if (currentPlayer == 'X') {
+                if (currentPlayer == 'X')
+                {
                     cout << green << " Winner is: " << firstPlayer << reset << endl;
                 }
-                else  {
-                    cout << green << " Winner is: " << secondPlayer<< reset << endl;
+                else
+                {
+                    cout << green << " Winner is: " << secondPlayer << reset << endl;
                 }
                 cout << endl;
                 gameOver = true;
@@ -270,9 +278,82 @@ public:
         currentPlayer = 'X';
         gameOver = false;
     }
+    void Playernamecomputer()
+    {
+        string name;
+        cout << "Enter your name: ";
+        cin >> name;
+        firstPlayer = name;
+        secondPlayer = "AI";
+    }
+
+    void pvcMode()
+    {
+        bool find = false;
+
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (baord[i][j] == '*')
+                {
+                    baord[i][j] = 'O';
+
+                    if (checkWinner())
+                    {
+                        display_board();
+                        checkStats();
+
+                        cout << "Winner is: " << secondPlayer << endl;
+
+                        gameOver = true;
+                        return;
+                    }
+
+                    baord[i][j] = '*';
+                }
+            }
+        }
+
+        // player blocking
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (baord[i][j] == '*')
+                {
+                    baord[i][j] = 'X';
+
+                    if (checkWinner())
+                    {
+                        
+                        baord[i][j] = '*';
+                        update(i + 1, j + 1);
+                        return;
+                    }
+
+                    baord[i][j] = '*';
+                }
+            }
+        }
+
+        while (find == false)
+        {
+            int number = rand() % 9;
+            int row = number / 3;
+            int column = number % 3;
+
+            if (baord[row][column] == '*')
+            {
+                update(row + 1, column + 1);
+                find = true;
+            }
+        }
+    }
 };
 int main()
 {
+
     Tic_tac t;
     int choice;
     string yellow = "\033[33m";
@@ -291,19 +372,41 @@ int main()
         {
         case 1:
         {
+            int gameMod;
+
+            cout << "1. Player vs Player " << endl;
+            cout << "2. Player vs Computer " << endl;
+            cout << "Choose Game Mode (1-2):  ";
+            cin >> gameMod;
+
+            if (gameMod == 1)
+            {
+                t.playerName();
+            }
+            else
+            {
+                t.Playernamecomputer();
+            }
+
             char again;
-            t.playerName();
 
             do
             {
-                
                 t.resetGame();
 
                 do
                 {
                     system("cls");
                     t.display_board();
-                    t.input();
+
+                    if (gameMod == 2 && t.getCurrent_player() == 'O')
+                    {
+                        t.pvcMode();
+                    }
+                    else
+                    {
+                        t.input();
+                    }
 
                 } while (!t.get_gameOver());
 
